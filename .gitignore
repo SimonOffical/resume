@@ -35,3 +35,12 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+
+# Project outputs
+PIPELINE.md
+output/
+resume-zh_CN.aux
+resume-zh_CN.pdf
+谢楚舒_论文V4.pdf
+谢楚舒_论文V4_mineru/
+谢楚舒_论文V4_pages/

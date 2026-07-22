@@ -7,6 +7,7 @@
 %\usepackage{zh_CN-Adobefonts_internal} % Simplified Chinese Support using system fonts
 \usepackage{linespacing_fix} % disable extra space before next section
 \usepackage{cite}
+\usepackage[hidelinks]{hyperref}
 
 \begin{document}
 \pagenumbering{gobble} % suppress displaying page number
@@ -15,7 +16,7 @@
 
 % {E-mail}{mobilephone}{homepage}
 % be careful of _ in emaill address
-\contactInfo{2118461480@qq.com}{(+86) 134-8706-8357}{硕士在读}{}
+\contactInfo{xcs\_sjtu@sjtu.edu.cn}{(+86) 134-8706-8357}{\href{https://github.com/soyoAgain}{github.com/soyoAgain}}{}
 % {E-mail}{mobilephone}
 % keep the last empty braces!
 %\contactInfo{xxx@yuanbin.me}{(+86) 131-221-87xxx}{}
@@ -26,43 +27,50 @@
 \datedsubsection{\textbf{武汉理工大学},测控技术与仪器,\textit{学士}}{2020.9 - 2024.6}
 \ \textbf{必修课平均绩点：3.571，专业排名：33/150}
 
-\section{研究方向}
+\section{专业技能}
 \begin{itemize}[parsep=0.2ex]
-  \item AI4S（人工智能驱动的科学计算）、电磁探测系统设计、地球物理数据反演
+  \item \textbf{编程语言与软件：} Python、MATLAB、\LaTeX、Git、Autodesk Fusion等
+  \item \textbf{仪器与硬件：} NI PXIe 平台、示波器、信号发生器、功率放大器等
+  \item \textbf{外语能力：} 英语 CET-6 570、CET-4 585
 \end{itemize}
 
+\section{科研/项目经历}
+\datedsubsection{\textbf{TEM 瞬变电磁法发射采集与降噪系统}}{2026.7 - 至今}
+\begin{itemize}[parsep=0.2ex]
+  \item \textbf{系统架构：} 基于 NI PXIe-4309/6361 采集发射卡搭建 TEM 发射-接收系统，采用 Mac 端 PySide6 图形界面通过 SSH 远程调度 PXI 端 NI-DAQmx 脚本的分布式架构，实现脉冲发射触发、多次叠加同步采集（250 kS/s）与发射电流实时监测。
+  \item \textbf{软件开发：} 开发全流程控制软件，支持充电/发射采集时序分离控制、参数化脉宽与叠加降噪、二次场衰减曲线可视化及数据自动保存回传。
+  \item \textbf{MSSA 联合降噪：} 基于 Block Hankel 矩阵 + SVD + 对角平均实现多测点多通道 SSA 降噪算法（纯 NumPy），自动识别二次场衰减起点并对齐各测点，显著提升低幅衰减信号的信噪比。
+\end{itemize}
+\datedsubsection{\textbf{FDEM 频率域电磁法发射采集系统}}{2026.4 - 2026.6}
+\begin{itemize}[parsep=0.2ex]
+  \item \textbf{实验系统构建：} 基于 NI PXIe-6361/4309、功率放大器及收发线圈，完成 FDEM 发射--接收实验链路的集成与调试；针对无保护 IGBT 功率级，设计零均值有限周期正弦激励、启动时序和 DC 耦合波形预检流程，降低直流偏置和异常输出对功率器件的风险。
+  \item \textbf{采集软件与数据链路：} 开发基于 PySide6、NI-DAQmx 和 SSH/SCP 的远程测量软件，实现频率与周期参数化控制、发射电流/接收线圈双通道同步采集、实时监测和外部信号源触发采集；通过 AI 先启动、AO 后启动及采集任务状态管理，提高发射与接收数据的时序一致性。
+  \item \textbf{数据处理与科研支撑：} 构建按频率组织的测点数据管理和完整性校验流程，提取接收信号与发射电流的幅值、相位及传递响应，形成可用于后续线圈校准、正演验证和联合反演的定量 FDEM 数据基础；同步整理功放接口、线圈差分接线和 IGBT 低压测试规范，提升实验流程的可复现性。
+\end{itemize}
+\datedsubsection{\textbf{基于数据驱动的时频电磁数据自适应融合反演}}{2024.9 - 至今}
+\begin{itemize}[parsep=0.2ex]
+  \item \textbf{目标：} 解决瞬变电磁法（TEM）因关断时间导致的浅层盲区与频率域电磁法（FDEM）受趋肤深度限制形成的深层盲区，实现全深度高分辨电性成像。
+  \item \textbf{方法（Linux 环境，PyTorch）：}
+  \begin{itemize}
+    \item \textbf{深度学习驱动先验建模：} 利用 ResNet1D 构建可信度评估网络，将传统经验加权转化为数据驱动的逐层约束。
+    \item \textbf{自适应融合：} 设计聚焦融合机制，在浅层引入 FDEM 先验，深层依托 TEM 响应，结合 MGS 聚焦约束增强界面锐度。
+  \end{itemize}
+  \item \textbf{成果：} 完成并行 Jacobian 计算模块开发，合成模型验证表明该方法在界面恢复精度上显著优于传统方法。拟投 \textit{IEEE Trans. Geosci. Remote Sens.}(JCR Q1)。
+\end{itemize}
+\datedsubsection{\textbf{高鲁棒性多模偏心补偿线圈设计}}{2026.3 - 至今}
+\begin{itemize}[parsep=0.2ex]
+  \item \textbf{挑战：} 解决小回线探测中一次场耦合干扰（PFCI）导致的接收机饱和问题，以及传统结构对机械装配精度要求过高的问题。
+  \item \textbf{创新：} 提出"Bucking 对消 + 接收端对称偏心"双级补偿拓扑，将接收线圈迁移至低梯度区，从原理上降低对机械公差的敏感度。
+  \item \textbf{成果：}
+  \begin{itemize}
+    \item 蒙特卡洛仿真显示，该结构将一次场泄漏均值降低 83.43\%，位置偏差敏感度（MID 标准差）缩小 72.44\%。
+    \item 实测一次场泄漏率仅 0.65\%（传统 bucking 结构 15.88\%，偏心结构 1.09\%），铁磁目标定位平均相对误差 4.52\%。
+    \item 撰写论文一篇，已投稿至 \textit{IEEE Trans. Instrum. Meas.}（JCR Q1），审稿中（Under Review）。
+  \end{itemize}
+\end{itemize}
 \section{竞赛获奖}
 \begin{itemize}[parsep=0.2ex]
   \item \textbf{第十三届"华中杯"大学生数学建模挑战赛三等奖}（2021）
-  \begin{itemize}
-    \item 赛题：马赛克瓷砖选色问题
-    \item 建立了一种基于RGB到LAB色彩转换的选色评价模型，用于评价马赛克瓷砖对8位RGB色彩系统模拟效果的优劣；采用模拟退火算法和上述评价模型，设计了一种解决马赛克瓷砖选色模型的算法
-  \end{itemize}
   \item \textbf{第二届长三角高校数学建模竞赛本科生组二等奖}（2022）
-  \begin{itemize}
-    \item 赛题：基于振动信号的齿轮箱故障诊断
-    \item 采用小波变换将时域信号转换到频率域，通过调节小波变换的系数实现振动数据中的噪声成分的去除；采用k均值算法对提取的故障信号特征进行聚类，建立了故障诊断模型
-  \end{itemize}
-\end{itemize}
-
-\section{科研经历}
-\datedsubsection{\textbf{FDEM频率域电磁法数据采集软件系统}}{2026.4 - 2026.6}
-\begin{itemize}
-  \item \textbf{工程背景}：针对FDEM实验中依赖手工操作、缺乏自动化采集流程的问题，基于NI PXIe-1071/4309硬件平台，从零搭建了一套完整的FDEM频率域电磁法发射与数据采集软件系统，支持多通道同步采集与频率扫描
-  \item \textbf{主要工作}：采用模块化架构设计，实现信号生成（正弦/方波/三角波）、NI-DAQmx硬件控制、信号预处理（去漂移/陷波/带通滤波）、IQ解调（数字锁相放大器）与频率扫描调度（线性/对数/混合）的完整采集链路；支持CLI命令行、JSON配置文件、Python API三种调用模式，以及硬件、VISA外部信号发生器、无硬件仿真三种运行模式
-  \item \textbf{工程成果}：系统已在NI PXIe平台上完成调试运行，支持多通道200 kS/s同步采集与50 Hz工频陷波；数据自动输出为HDF5与CSV双格式，并与课题组现有FDEM正演、TEM/FDEM联合反演代码无缝对接，为后续野外实验提供自动化采集支撑
-\end{itemize}
-\datedsubsection{\textbf{小回线电磁探测系统多模偏心补偿线圈设计}}{2025.3 - 至今}
-\begin{itemize}
-  \item \textbf{研究问题}：小回线电磁系统在浅层高分辨探测中，发射线圈产生的一次场耦合干扰（PFCI）会掩盖微弱二次场信号，导致接收机饱和与探测盲区；传统bucking结构和偏心自补偿结构分别对制造公差和安装位置误差高度敏感
-  \item \textbf{创新点：多模偏心补偿与低梯度鲁棒设计}：提出"bucking发射端对消 + 接收端对称偏心磁通积分"的双级补偿拓扑，将两个接收线圈对称放置在零耦合点串联叠加增强二次场信号；同时将接收线圈从传统结构的高梯度区（约$4.5 \times 10^{-3}$ Wb/m）迁移至低梯度区（约$2.7 \times 10^{-3}$ Wb/m），使位置偏差引起的一次场泄漏对空间偏移不再敏感，从原理上降低了对机械装配精度的要求
-  \item \textbf{研究进展}：蒙特卡洛仿真表明，所提结构在制造公差下将一次场泄漏均值降低83.43\%，在位置偏差下将MID标准差缩小72.44\%；实验验证一次场泄漏率仅0.65\%（传统bucking结构15.88\%，偏心结构1.09\%），铁磁目标定位平均相对误差4.52\%，已完成论文撰写，拟投稿 \textit{IEEE Trans. Instrum. Meas.}
-\end{itemize}
-\datedsubsection{\textbf{时频多模电磁探测与自适应聚焦融合反演}}{2024.9 - 至今}
-\begin{itemize}
-  \item \textbf{研究问题}：针对瞬变电磁法因关断时间导致的浅层盲区与频率域电磁法受趋肤深度限制形成的深层盲区，探索时频多模电磁数据融合反演方法，实现地下电性结构的全深度高分辨成像
-  \item \textbf{创新一：数据驱动先验可信度建模}：提出基于深度学习的FDEM反演可信度评估网络，利用ResNet1D逐层预测反演结果置信度分数$\mathbf{r} \in (0,1)$，构建自适应权重矩阵初始值$\mathbf{W}_v^0 = \mathrm{diag}(\mathbf{r})$，将传统经验设权转化为数据驱动的逐层可信度约束
-  \item \textbf{创新二：自适应聚焦融合机制}：设计按深度自适应加权的时频融合反演约束，在浅层高置信区域引入FDEM先验界面信息，在深层低置信区域降低先验束缚并依托TEM响应成像；结合MGS聚焦约束增强电阻率突变界面的锐度恢复能力
-  \item \textbf{研究进展}：已完成TEM/FDEM一维正演、DLS/MGS/FDEMMGS反演框架与并行Jacobian计算模块，基于合成模型验证了方法在界面恢复和全局拟合误差上的改进效果，拟投稿 \textit{IEEE Trans. Geosci. Remote Sens.}
 \end{itemize}
 \end{document}
